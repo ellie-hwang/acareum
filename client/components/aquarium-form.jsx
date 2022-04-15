@@ -5,10 +5,12 @@ export default class AquariumForm extends React.Component {
     super(props);
     this.state = {
       name: '',
-      size: ''
+      size: '',
+      file: ''
     };
     this.fileInputRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderPreview = this.renderPreview.bind(this);
     this.setSize = this.setSize.bind(this);
     this.setName = this.setName.bind(this);
   }
@@ -28,13 +30,22 @@ export default class AquariumForm extends React.Component {
       .then(resBody => {
         this.setState({
           name: '',
-          size: ''
+          size: '',
+          file: ''
         });
         this.fileInputRef.current.value = null;
       })
       .catch(error => {
         console.error('Error:', error);
       });
+    const form = document.querySelector('#aquarium-form');
+    form.reset();
+  }
+
+  renderPreview(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0])
+    });
   }
 
   setSize(event) {
@@ -51,6 +62,7 @@ export default class AquariumForm extends React.Component {
 
   render() {
     const size = this.state.size;
+    const placeholder = this.state.file ? this.state.file : 'images/placeholder.png';
     return (
       <div className="container-fluid">
         <div className="row">
@@ -59,14 +71,14 @@ export default class AquariumForm extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="mb-3 col-xs-12 col-md-6">
-            <img src="images/myaquarium.jpg" alt="" className="tank-form-img" />
+          <div className="mb-3 col-xs-12 col-md-6" >
+            <img src={placeholder} alt="picture of aquarium" className="tank-form-img" />
           </div>
-          <div className="col-xs12 col-md-6">
+          <div className="col-xs-12 col-md-6">
             <form id="aquarium-form" onSubmit={this.handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="formFile" className="form-label custom-file-upload">Image</label>
-                <input required className="form-control" type="file" id="formFile" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" />
+                <input required className="form-control" type="file" id="formFile" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.renderPreview}/>
               </div>
               <div className="mb-3">
                 <label htmlFor="tankName" className="form-label">Name</label>
@@ -76,7 +88,7 @@ export default class AquariumForm extends React.Component {
               <input required type="range" className="form-range" id="size" name="size" min="0" max="200" value={this.state.size} onChange={this.setSize} />
               <output>{size}</output>
               <div className="text-end">
-                <button type="button">Complete Setup</button>
+                <button type="submit">Complete Setup</button>
               </div>
             </form>
           </div>
