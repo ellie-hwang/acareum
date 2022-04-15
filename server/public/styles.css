@@ -12,21 +12,59 @@ label {
   font-variation-settings: "wght" 500;
 }
 
+input[type="file"] {
+  color: rgb(156, 156, 156);
+}
+
+input[type="text"]::placeholder {
+  color: rgb(156, 156, 156);
+}
+
 .form-control {
+  outline: none;
   background-color: black;
   border: 1px solid white;
-  color: rgb(134, 134, 134);
+  color: rgb(156, 156, 156);
 }
 
 .form-control:focus {
+  outline: none;
   background-color: black;
   border: 2px solid #5e60ce;
   box-shadow: none;
   color: white;
 }
 
+.range-wrap {
+  position: relative;
+}
+
+.bubble {
+  background-color: #5e60ce;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  border-top: 4px solid #5e60ce;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
 input[type="range"] {
   appearance: none;
+  position: relative;
   margin: 20px 0;
   width: 100%;
 }
@@ -47,6 +85,14 @@ input[type="range"]::-webkit-slider-thumb {
   background: #5e60ce;
 }
 
+input#size {
+  display: inline;
+}
+
+output {
+  display: inline;
+}
+
 .tank-form-img {
   border-radius: 12px;
   border: 2px solid white;
@@ -61,4 +107,29 @@ button {
   outline: none;
   border: none;
   color: white;
+}
+
+header {
+  border-bottom: 1px solid #636363;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: white;
+  font-variation-settings: "wght" 700;
+  display: inline;
+}
+
+.navbar-brand:focus {
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: white;
+}
+
+.fas.fa-bars {
+  display: inline;
+  color: white;
+  font-size: 1.5em;
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-
 export default class AquariumForm extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +51,21 @@ export default class AquariumForm extends React.Component {
     this.setState({
       size: event.target.value
     });
+
+    const $range = document.querySelector('.form-range');
+    const $bubble = document.querySelector('.bubble');
+
+    setBubble($range, $bubble);
+
+    function setBubble($range, $bubble) {
+      const val = $range.value;
+      const min = $range.min ? $range.min : 0;
+      const max = $range.max ? $range.max : 200;
+      const newVal = Number(((val - min) * 100) / (max - min));
+      $bubble.innerHTML = val;
+
+      $bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
+    }
   }
 
   setName(event) {
@@ -61,13 +75,13 @@ export default class AquariumForm extends React.Component {
   }
 
   render() {
-    const size = this.state.size;
+    const size = this.state.size ? this.state.size : '100';
     const placeholder = this.state.file ? this.state.file : 'images/placeholder.png';
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col mt-3">
-            <h1>Set up Tank</h1>
+            <h1 className="pb-1">Set up Tank</h1>
           </div>
         </div>
         <div className="row">
@@ -78,15 +92,17 @@ export default class AquariumForm extends React.Component {
             <form id="aquarium-form" onSubmit={this.handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="formFile" className="form-label custom-file-upload">Image</label>
-                <input required className="form-control" type="file" id="formFile" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.renderPreview}/>
+                <input required autoFocus className="form-control" type="file" id="formFile" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.renderPreview}/>
               </div>
               <div className="mb-3">
                 <label htmlFor="tankName" className="form-label">Name</label>
                 <input required type="text" className="form-control" name="tankName" id="tankName" placeholder="MyAquarium" value={this.state.name} onChange={this.setName}/>
               </div>
-              <label htmlFor="size" className="form-label">Gallons</label>
-              <input required type="range" className="form-range" id="size" name="size" min="0" max="200" value={this.state.size} onChange={this.setSize} />
-              <output>{size}</output>
+              <div className="range-wrap">
+                <label htmlFor="size" className="form-label pb-3">Gallons</label>
+                <input required type="range" className="form-range" id="size" name="size" min="0" max="200" value={size} onChange={this.setSize} />
+                <output className="bubble">{size}</output>
+              </div>
               <div className="text-end">
                 <button type="submit">Complete Setup</button>
               </div>
