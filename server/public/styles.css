@@ -3,6 +3,31 @@ body {
   font-family: Inter, serif;
 }
 
+header {
+  border-bottom: 1px solid #636363;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: white;
+  font-variation-settings: "wght" 700;
+  display: inline;
+}
+
+.navbar-brand:focus {
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: white;
+}
+
+.fas.fa-bars {
+  display: inline;
+  color: white;
+  font-size: 1.5em;
+}
+
 h1 {
   font-variation-settings: "wght" 700;
 }
@@ -10,14 +35,6 @@ h1 {
 label {
   font-size: 1em;
   font-variation-settings: "wght" 500;
-}
-
-input[type="file"] {
-  color: rgb(156, 156, 156);
-}
-
-input[type="text"]::placeholder {
-  color: rgb(156, 156, 156);
 }
 
 .form-control {
@@ -35,31 +52,16 @@ input[type="text"]::placeholder {
   color: white;
 }
 
+input[type="file"] {
+  color: rgb(156, 156, 156);
+}
+
+input[type="text"]::placeholder {
+  color: rgb(156, 156, 156);
+}
+
 .range-wrap {
   position: relative;
-}
-
-.bubble {
-  background-color: #5e60ce;
-  color: white;
-  padding: 4px 8px;
-  position: absolute;
-  border-radius: 4px;
-  left: 50%;
-  top: 30%;
-  transform: translateX(-50%);
-}
-
-.bubble::after {
-  content: "";
-  position: absolute;
-  top: 105%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  border-top: 4px solid #5e60ce;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
 }
 
 input[type="range"] {
@@ -85,12 +87,27 @@ input[type="range"]::-webkit-slider-thumb {
   background: #5e60ce;
 }
 
-input#size {
-  display: inline;
+.bubble {
+  background-color: #5e60ce;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
 }
 
-output {
-  display: inline;
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  border-top: 4px solid #5e60ce;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
 }
 
 .tank-form-img {
@@ -107,29 +124,4 @@ button {
   outline: none;
   border: none;
   color: white;
-}
-
-header {
-  border-bottom: 1px solid #636363;
-}
-
-.navbar-brand {
-  text-decoration: none;
-  color: white;
-  font-variation-settings: "wght" 700;
-  display: inline;
-}
-
-.navbar-brand:focus {
-  color: white;
-}
-
-.navbar-brand:hover {
-  color: white;
-}
-
-.fas.fa-bars {
-  display: inline;
-  color: white;
-  font-size: 1.5em;
 }
