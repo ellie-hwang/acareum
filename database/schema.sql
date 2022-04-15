@@ -8,7 +8,7 @@ create schema "public";
 
 CREATE TABLE "public"."tanks" (
 	"tankId" serial NOT NULL,
-	"name" TEXT NOT NULL UNIQUE,
+	"name" TEXT NOT NULL,
 	"imageId" integer NOT NULL,
 	"size" int NOT NULL,
 	CONSTRAINT "tanks_pk" PRIMARY KEY ("tankId")
@@ -21,7 +21,7 @@ CREATE TABLE "public"."tanks" (
 CREATE TABLE "public"."inhabitants" (
 	"inhabitantId" serial NOT NULL,
 	"tankId" integer NOT NULL,
-	"name" TEXT NOT NULL UNIQUE,
+	"name" TEXT NOT NULL,
 	"status" TEXT NOT NULL,
 	"dateAdded" timestamp with time zone NOT NULL,
 	"imageId" integer NOT NULL,

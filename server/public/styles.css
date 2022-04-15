@@ -1,0 +1,61 @@
+body {
+  background-color: black;
+  font-family: Inter, serif;
+}
+
+h1 {
+  font-variation-settings: "wght" 700;
+}
+
+label {
+  font-size: 1em;
+  font-variation-settings: "wght" 500;
+}
+
+.form-control {
+  background-color: black;
+  border: 1px solid white;
+  color: rgb(134, 134, 134);
+}
+
+.form-control:focus {
+  background-color: black;
+  border: 2px solid #5e60ce;
+  box-shadow: none;
+  color: white;
+}
+
+input[type="range"] {
+  appearance: none;
+  margin: 20px 0;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgb(255, 255, 255);
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #5e60ce;
+}
+
+.tank-form-img {
+  width: 100%;
+}
+
+button {
+  padding: 8px 10px;
+  background-color: #5e60ce;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  color: white;
+}
