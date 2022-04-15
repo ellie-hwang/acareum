@@ -1,0 +1,127 @@
+body {
+  background-color: black;
+  font-family: Inter, serif;
+}
+
+header {
+  border-bottom: 1px solid #636363;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  color: white;
+  font-variation-settings: "wght" 700;
+  display: inline;
+}
+
+.navbar-brand:focus {
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: white;
+}
+
+.fas.fa-bars {
+  display: inline;
+  color: white;
+  font-size: 1.5em;
+}
+
+h1 {
+  font-variation-settings: "wght" 700;
+}
+
+label {
+  font-size: 1em;
+  font-variation-settings: "wght" 500;
+}
+
+.form-control {
+  outline: none;
+  background-color: black;
+  border: 1px solid white;
+  color: rgb(156, 156, 156);
+}
+
+.form-control:focus {
+  outline: none;
+  background-color: black;
+  border: 2px solid #5e60ce;
+  box-shadow: none;
+  color: white;
+}
+
+input[type="file"] {
+  color: rgb(156, 156, 156);
+}
+
+input[type="text"]::placeholder {
+  color: rgb(156, 156, 156);
+}
+
+.range-wrap {
+  position: relative;
+}
+
+input[type="range"] {
+  appearance: none;
+  position: relative;
+  margin: 20px 0;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgb(255, 255, 255);
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #5e60ce;
+}
+
+.bubble {
+  background-color: #5e60ce;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  border-top: 4px solid #5e60ce;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+.tank-form-img {
+  border-radius: 12px;
+  border: 2px solid white;
+  width: 100%;
+  object-fit: cover;
+}
+
+button {
+  padding: 8px 10px;
+  background-color: #5e60ce;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  color: white;
+}
