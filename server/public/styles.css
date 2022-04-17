@@ -136,10 +136,24 @@ button {
   font-size: 30px;
 }
 
+.tank-img-container {
+  align-self: stretch;
+}
+
 .tank-img {
   border-radius: 12px;
   border: 2px solid white;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.details-container {
+  border-radius: 12px;
+  border: 2px solid white;
+  background-color: #6930c3;
+}
+
+.details {
+  margin: 1.5em;
 }
