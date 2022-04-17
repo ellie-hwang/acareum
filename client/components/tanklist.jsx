@@ -21,33 +21,59 @@ export default class TankList extends React.Component {
   }
 
   handleClick(event) {
-    // console.log(this.state.tanks);
+    if (parseInt(event.target.getAttribute('data-tank-id')) === this.state.tankId) {
+      this.setState({
+        tankId: '',
+        detailsOpen: false
+      });
+    } else if (parseInt(event.target.getAttribute('data-tank-id')) !== this.state.tankId && this.state.detailsOpen === true) {
+      this.setState({
+        tankId: parseInt(event.target.getAttribute('data-tank-id')),
+        detailsOpen: true
+      });
+    } else if (parseInt(event.target.getAttribute('data-tank-id')) !== this.state.tankId && this.state.detailsOpen === false) {
+      this.setState({
+        tankId: parseInt(event.target.getAttribute('data-tank-id')),
+        detailsOpen: true
+      });
+    }
   }
 
   render() {
-    // const details = this.state.detailsOpen ? '' : 'display-none';
+    const toggleDetails = this.state.detailsOpen ? '' : 'display-none';
+    const toggleImg = this.state.detailsOpen ? 'display-none' : '';
+    const tanks = this.state.tanks.map(tank => {
+      if (tank.tankId === this.state.tankId) {
+        return (
+          <div className="mb-3 col-12 col-sm-6 col-md-6" key={tank.tankId.toString()} data-tank-id={tank.tankId} onClick={this.handleClick}>
+            <TankImg display={toggleImg} tank={tank} />
+            <Details display={toggleDetails} tank={tank} />
+          </div>
+        );
+      } else {
+        return (
+          <div className="mb-3 col-12 col-sm-6 col-md-6" key={tank.tankId.toString()} data-tank-id={tank.tankId} onClick={this.handleClick}>
+            <TankImg display='' tank={tank} />
+            <Details display='display-none' tank={tank} />
+          </div>
+        );
+      }
+    });
     return (
       <div className="row">
-        {
-          this.state.tanks.map(tank => (
-            <div key={tank.tankId} className="mb-3 col-xs-12 col-md-6 tank-img-container" onClick={this.handleClick}>
-              <Tank tank={tank} />
-              <Details tank={tank} />
-            </div>
-          ))
-        }
+        {tanks}
       </div>
     );
   }
 }
 
-function Tank(props) {
-  const { imageId, imageUrl } =
+function TankImg(props) {
+  const { imageId, imageUrl, tankId } =
   props.tank;
   return (
-    <>
-      <img src={imageUrl} alt="picture of user's tank" data-imageId={imageId} className="tank-img" />
-    </>
+    <div className={props.display}>
+      <img src={imageUrl} alt="picture of user's tank" data-image-id={imageId} data-tank-id={tankId} className="tank-img" />
+    </div>
   );
 }
 
@@ -60,18 +86,24 @@ function Details(props) {
   }
   if (!ammonia) {
     ammonia = 'N/A';
+  } else {
+    ammonia = `${ammonia} ppm`;
   }
   if (!nitrite) {
     nitrite = 'N/A';
+  } else {
+    nitrite = `${nitrite} ppm`;
   }
   if (!temperature) {
     temperature = 'N/A';
   }
   if (!nitrate) {
     nitrate = 'N/A';
+  } else {
+    nitrate = `${nitrate} ppm`;
   }
   return (
-    <div className="details-container">
+    <div className={`details-container ${props.display}`}>
       <div className="details">
         <h4>
           <strong>
@@ -92,7 +124,7 @@ function Details(props) {
             <p className="mb-1">ammonia: <strong>{ammonia}</strong></p>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   );
 }
