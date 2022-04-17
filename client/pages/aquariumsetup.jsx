@@ -1,5 +1,5 @@
 import React from 'react';
-export default class AquariumForm extends React.Component {
+export default class AquariumSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +39,7 @@ export default class AquariumForm extends React.Component {
       .catch(error => {
         console.error('Error:', error);
       });
-    const form = document.querySelector('#aquarium-form');
-    form.reset();
+    window.location.hash = '#';
   }
 
   renderPreview(event) {
