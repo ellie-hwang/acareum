@@ -35,7 +35,7 @@ CREATE TABLE "public"."inhabitants" (
 CREATE TABLE "public"."conditions" (
 	"conditionsId" serial NOT NULL,
 	"tankId" integer NOT NULL,
-	"pH" serial NOT NULL,
+	"pH" DECIMAL,
 	"temperature" integer NOT NULL,
 	"ammonia" DECIMAL NOT NULL,
 	"nitrite" DECIMAL NOT NULL,

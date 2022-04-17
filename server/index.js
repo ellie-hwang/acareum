@@ -59,6 +59,27 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.use('/api/aquariums', (req, res, next) => {
+  const sql = `
+    select "tanks"."tankId", "tanks"."name" as "tankName", "images"."imageId",
+    "images"."imageUrl", COALESCE("inhabitants"."population", 0) as "population", "conditions"."pH",
+    "conditions"."temperature", "conditions"."ammonia", "conditions"."nitrite", "conditions"."nitrate"
+    from "images"
+    join "tanks" using ("imageId")
+    left join (
+      select "tankId", count(*) as "population"
+      from "inhabitants"
+      group by "tankId"
+    ) "inhabitants"  on "tanks"."tankId" = "inhabitants"."tankId"
+    left join "conditions" on "tanks"."tankId" = "conditions"."tankId"
+  `;
+  db.query(sql)
+    .then(result => {
+      const tanks = result.rows;
+      res.status(201).json(tanks);
+    })
+    .catch(err => next(err));
+});
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

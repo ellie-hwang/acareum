@@ -75,8 +75,8 @@ export default class AquariumForm extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col mt-3">
-            <h1 className="pb-1">Set up Tank</h1>
+          <div className="col mt-3 mb-3">
+            <h1>Set up Tank</h1>
           </div>
         </div>
         <div className="row">
