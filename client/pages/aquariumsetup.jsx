@@ -4,7 +4,7 @@ export default class AquariumSetup extends React.Component {
     super(props);
     this.state = {
       name: '',
-      size: '',
+      size: 100,
       url: '',
       file: ''
     };
@@ -30,7 +30,7 @@ export default class AquariumSetup extends React.Component {
       .then(resBody => {
         this.setState({
           name: '',
-          size: '',
+          size: 100,
           url: '',
           file: ''
         });

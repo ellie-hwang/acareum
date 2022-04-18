@@ -81,6 +81,39 @@ app.get('/api/aquariums', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
+app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
+  const { name, species, tankId } = req.body;
+  const url = path.join('/images', req.file.filename);
+  if (!url || !name || !species) {
+    throw new ClientError(400, 'url, name, and species are required fields');
+  }
+  const sql1 = `
+    insert into "images" ("imageUrl")
+    values ($1)
+    returning *;
+  `;
+  const params1 = [url];
+  db.query(sql1, params1)
+    .then(result => {
+      const [newImage] = result.rows; // returns a json obj { "imageId":"someNumber" }
+      const imageId = Number(newImage.imageId);
+      const sql2 = `
+        insert into "inhabitants" ("tankId", "name", "species", "imageId")
+        values ($1, $2, $3, $4)
+        returning *
+      `;
+      const params2 = [tankId, name, species, imageId];
+      db.query(sql2, params2)
+        .then(result => {
+          const [newInhabitant] = result.rows; // return a json obj { inhabitantId, tankId, name, species, dateAdded, imageId}
+          res.status(201).json({ newImage, newInhabitant });
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
