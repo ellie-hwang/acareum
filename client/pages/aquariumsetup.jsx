@@ -1,5 +1,5 @@
 import React from 'react';
-export default class AquariumForm extends React.Component {
+export default class AquariumSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +39,7 @@ export default class AquariumForm extends React.Component {
       .catch(error => {
         console.error('Error:', error);
       });
-    const form = document.querySelector('#aquarium-form');
-    form.reset();
+    window.location.hash = '#';
   }
 
   renderPreview(event) {
@@ -75,15 +74,15 @@ export default class AquariumForm extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col mt-3">
-            <h1 className="pb-1">Set up Tank</h1>
+          <div className="col mt-3 mb-3">
+            <h1>Set up Tank</h1>
           </div>
         </div>
         <div className="row">
-          <div className="mb-3 col-xs-12 col-md-6" >
+          <div className="mb-3 col-12 col-md-6" >
             <img src={placeholder} alt="picture of aquarium" className="tank-form-img" />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-12 col-md-6">
             <form id="aquarium-form" onSubmit={this.handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="formFile" className="form-label custom-file-upload">Image</label>
