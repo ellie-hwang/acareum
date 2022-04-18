@@ -96,6 +96,8 @@ function Details(props) {
   }
   if (!temperature) {
     temperature = 'N/A';
+  } else {
+    temperature = `${temperature}\u00B0F`;
   }
   if (!nitrate) {
     nitrate = 'N/A';

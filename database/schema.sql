@@ -11,6 +11,7 @@ CREATE TABLE "public"."tanks" (
 	"name" TEXT NOT NULL,
 	"imageId" integer NOT NULL,
 	"size" int NOT NULL,
+  "dateAdded" timestamp with time zone NOT NULL DEFAULT NOW(),
 	CONSTRAINT "tanks_pk" PRIMARY KEY ("tankId")
 ) WITH (
   OIDS=FALSE
@@ -23,7 +24,7 @@ CREATE TABLE "public"."inhabitants" (
 	"tankId" integer NOT NULL,
 	"name" TEXT NOT NULL,
 	"status" TEXT NOT NULL,
-	"dateAdded" timestamp with time zone NOT NULL,
+	"dateAdded" timestamp with time zone NOT NULL DEFAULT NOW(),
 	"imageId" integer NOT NULL,
 	CONSTRAINT "inhabitants_pk" PRIMARY KEY ("inhabitantId")
 ) WITH (
@@ -40,7 +41,7 @@ CREATE TABLE "public"."conditions" (
 	"ammonia" DECIMAL NOT NULL,
 	"nitrite" DECIMAL NOT NULL,
 	"nitrate" DECIMAL NOT NULL,
-	"dateLogged" timestamp with time zone NOT NULL,
+	"dateLogged" timestamp with time zone NOT NULL DEFAULT NOW(),
 	CONSTRAINT "conditions_pk" PRIMARY KEY ("conditionsId")
 ) WITH (
   OIDS=FALSE

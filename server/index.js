@@ -59,9 +59,9 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.use('/api/aquariums', (req, res, next) => {
+app.get('/api/aquariums', (req, res, next) => {
   const sql = `
-    select "tanks"."tankId", "tanks"."name" as "tankName", "images"."imageId",
+    select "tanks"."tankId", "tanks"."name" as "tankName", "tanks"."dateAdded", "images"."imageId",
     "images"."imageUrl", COALESCE("inhabitants"."population", 0) as "population", "conditions"."pH",
     "conditions"."temperature", "conditions"."ammonia", "conditions"."nitrite", "conditions"."nitrate"
     from "images"
@@ -72,6 +72,7 @@ app.use('/api/aquariums', (req, res, next) => {
       group by "tankId"
     ) "inhabitants"  on "tanks"."tankId" = "inhabitants"."tankId"
     left join "conditions" on "tanks"."tankId" = "conditions"."tankId"
+    order by "tanks"."dateAdded" desc;
   `;
   db.query(sql)
     .then(result => {
