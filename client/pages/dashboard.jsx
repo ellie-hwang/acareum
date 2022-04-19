@@ -68,12 +68,15 @@ function TankImg(props) {
 }
 
 function Population(props) {
-  const { population } = props.tank;
+  const { population, tankId } = props.tank;
   return (
       <div className="population-tab">
-        <div className="population-details">
-          <p>Population</p>
-          <h2>{population}</h2>
+        <div className="population-details text-center">
+          <h5>Population</h5>
+          <h1 className="population-h1">{population}</h1>
+          <div className="text-end population-icon-container">
+            <a href={`#inhabitant-setup?tankId=${tankId}`}><i className="fas fa-plus" /></a>
+          </div>
         </div>
       </div>
   );
