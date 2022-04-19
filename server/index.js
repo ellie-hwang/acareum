@@ -164,6 +164,28 @@ app.get('/api/aquariums/:tankId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/inhabitants/:tankId', (req, res, next) => {
+  const tankId = Number(req.params.tankId);
+  if (!tankId) {
+    throw new ClientError(400, 'tankId must be a positive integer');
+  }
+  const sql = `
+    select *
+    from "inhabitants"
+    join "images" using ("imageId")
+    where "inhabitants"."tankId" = $1;
+  `;
+  const params = [tankId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `There are no inhabitants in the tankId ${tankId}`);
+      }
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
