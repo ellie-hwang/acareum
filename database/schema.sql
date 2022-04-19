@@ -23,7 +23,7 @@ CREATE TABLE "public"."inhabitants" (
 	"inhabitantId" serial NOT NULL,
 	"tankId" integer NOT NULL,
 	"name" TEXT NOT NULL,
-	"status" TEXT NOT NULL,
+  "species" TEXT NOT NULL,
 	"dateAdded" timestamp with time zone NOT NULL DEFAULT NOW(),
 	"imageId" integer NOT NULL,
 	CONSTRAINT "inhabitants_pk" PRIMARY KEY ("inhabitantId")

@@ -132,7 +132,7 @@ button {
   color: white;
 }
 
-#myaquariums-h1 {
+.myaquariums-h1 {
   display: inline-block;
 }
 
@@ -231,4 +231,67 @@ a.sidebar-item {
   color: white;
   font-size: 1.5em;
   cursor: pointer;
+}
+
+.details > h4 {
+  display: inline-block;
+}
+
+.far.fa-edit {
+  display: inline-block;
+  font-size: 25px;
+}
+
+.population-tab {
+  background-color: #6930c3;
+  border-radius: 12px;
+  border: 2px solid white;
+  position: relative;
+}
+
+.db-tank-img {
+  border-radius: 12px;
+  border: 2px solid white;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.population-details {
+  margin: 1em;
+}
+
+.population-details > h1 {
+  font-size: 4em;
+  padding: 0;
+  margin-bottom: 0.5em;
+}
+
+.population-details > h5 {
+  margin-bottom: 0;
+}
+
+.population-icon-container {
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+}
+
+.inhabitants-h1 {
+  display: inline-block;
+}
+
+.circular-frame {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 0.5em auto;
+}
+
+.inhabitant-form-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
