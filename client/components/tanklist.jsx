@@ -78,7 +78,7 @@ function TankImg(props) {
 }
 
 function Details(props) {
-  const { tankName, population } =
+  const { tankName, population, tankId } =
     props.tank;
   let { pH, ammonia, temperature, nitrite, nitrate } = props.tank;
   if (!pH) {
@@ -107,12 +107,17 @@ function Details(props) {
   return (
     <div className={`details-container ${props.display}`}>
       <div className="details">
-        <h4>
-          <strong>
-          {tankName}
-          </strong>
-        </h4>
-        <h5 className="my-3">
+        <div className="row">
+          <h4 className="col-10 col-md-10">
+            <strong>
+              {tankName}
+            </strong>
+          </h4>
+          <div className="col-2 col-md-2 text-end">
+            <a href={`#dashboard?tankId=${tankId}`}><i className="far fa-edit" /></a>
+          </div>
+        </div>
+        <h5 className="my-2">
           Population: <strong>{population}</strong>
         </h5>
         <div className="row">

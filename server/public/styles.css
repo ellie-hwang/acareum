@@ -232,3 +232,28 @@ a.sidebar-item {
   font-size: 1.5em;
   cursor: pointer;
 }
+
+.details > h4 {
+  display: inline-block;
+}
+
+.far.fa-edit {
+  display: inline-block;
+  font-size: 25px;
+
+  /* z-index: 999; */
+}
+
+.population-tab {
+  background-color: #6930c3;
+  border-radius: 12px;
+  border: 2px solid white;
+}
+
+.db-tank-img {
+  border-radius: 12px;
+  border: 2px solid white;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}

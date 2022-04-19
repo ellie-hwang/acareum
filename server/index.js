@@ -62,8 +62,8 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
 app.get('/api/aquariums', (req, res, next) => {
   const sql = `
     select "tanks"."tankId", "tanks"."name" as "tankName", "tanks"."dateAdded", "images"."imageId",
-    "images"."imageUrl", COALESCE("inhabitants"."population", 0) as "population", "conditions"."pH",
-    "conditions"."temperature", "conditions"."ammonia", "conditions"."nitrite", "conditions"."nitrate"
+    "images"."imageUrl", COALESCE("inhabitants"."population", 0) as "population", "conditions"."dateLogged",
+    "conditions"."pH", "conditions"."temperature", "conditions"."ammonia", "conditions"."nitrite", "conditions"."nitrate"
     from "images"
     join "tanks" using ("imageId")
     left join (
@@ -71,7 +71,17 @@ app.get('/api/aquariums', (req, res, next) => {
       from "inhabitants"
       group by "tankId"
     ) "inhabitants"  on "tanks"."tankId" = "inhabitants"."tankId"
-    left join "conditions" on "tanks"."tankId" = "conditions"."tankId"
+    left join (
+      select "conditions"."conditionsId", "conditions"."tankId", "conditions"."pH", "conditions"."temperature", "conditions"."ammonia",
+        "conditions"."nitrite", "conditions"."nitrate", "conditions"."dateLogged"
+      from "conditions"
+      join (
+        select "tankId", MAX("dateLogged") as "dateLogged"
+        from "conditions"
+        group by "tankId") as "recentConditions"
+        on "conditions"."tankId"="recentConditions"."tankId" AND
+        "conditions"."dateLogged"="recentConditions"."dateLogged"
+    ) "conditions" on "tanks"."tankId" = "conditions"."tankId"
     order by "tanks"."dateAdded" desc;
   `;
   db.query(sql)
@@ -110,6 +120,46 @@ app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
           res.status(201).json({ newImage, newInhabitant });
         })
         .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/aquariums/:tankId', (req, res, next) => {
+  const tankId = Number(req.params.tankId);
+  if (!tankId) {
+    throw new ClientError(400, 'tankId must be a positive integer');
+  }
+  const sql = `
+    select "tanks"."tankId", "tanks"."name" as "tankName", "tanks"."dateAdded", "images"."imageId",
+      "images"."imageUrl", COALESCE("inhabitants"."population", 0) as "population", "conditions"."dateLogged",
+      "conditions"."pH", "conditions"."temperature", "conditions"."ammonia", "conditions"."nitrite", "conditions"."nitrate"
+    from "images"
+    join "tanks" using("imageId")
+    left join(
+        select "tankId", count(*) as "population"
+        from "inhabitants"
+        group by "tankId"
+        ) "inhabitants"  on "tanks"."tankId" = "inhabitants"."tankId"
+    left join(
+        select "conditions"."conditionsId", "conditions"."tankId", "conditions"."pH", "conditions"."temperature", "conditions"."ammonia",
+        "conditions"."nitrite", "conditions"."nitrate", "conditions"."dateLogged"
+        from "conditions"
+        join(
+            select "tankId", MAX("dateLogged") as "dateLogged"
+            from "conditions"
+            group by "tankId") as "recentConditions"
+            on "conditions"."tankId" = "recentConditions"."tankId" AND
+            "conditions"."dateLogged" = "recentConditions"."dateLogged"
+        ) "conditions" on "tanks"."tankId" = "conditions"."tankId"
+    where "tanks"."tankId" = $1;
+  `;
+  const params = [tankId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows[0]) {
+        throw new ClientError(400, `cannot find tank with tankId ${tankId}`);
+      }
+      res.json(result.rows[0]);
     })
     .catch(err => next(err));
 });
