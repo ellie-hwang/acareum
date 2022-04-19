@@ -1,4 +1,5 @@
 import React from 'react';
+import InhabitantList from '../components/inhabitantlist';
 
 export default function Inhabitants(props) {
   return (
@@ -10,7 +11,7 @@ export default function Inhabitants(props) {
             <a href={`#inhabitant-setup?tankId=${props.tankId}`}><i className="fas fa-plus" /></a>
           </div>
         </div>
-        {/* INHABITANTSLIST PLACEHOLDER */}
+        <InhabitantList tankId={props.tankId} />
       </div>
     </>
   );
