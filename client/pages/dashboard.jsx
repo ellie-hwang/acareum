@@ -4,10 +4,8 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // tankId: Number(props.tankId),
       tank: ''
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -17,10 +15,6 @@ export default class Dashboard extends React.Component {
       .catch(error => {
         console.error('Error:', error);
       });
-  }
-
-  handleClick(event) {
-
   }
 
   render() {

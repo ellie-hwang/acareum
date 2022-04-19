@@ -132,7 +132,7 @@ button {
   color: white;
 }
 
-#myaquariums-h1 {
+.myaquariums-h1 {
   display: inline-block;
 }
 
@@ -240,8 +240,6 @@ a.sidebar-item {
 .far.fa-edit {
   display: inline-block;
   font-size: 25px;
-
-  /* z-index: 999; */
 }
 
 .population-tab {
@@ -281,4 +279,19 @@ a.sidebar-item {
 
 .inhabitants-h1 {
   display: inline-block;
+}
+
+.circular-frame {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin: 0.5em auto;
+}
+
+.inhabitant-form-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
