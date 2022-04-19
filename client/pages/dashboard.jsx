@@ -75,7 +75,7 @@ function Population(props) {
           <h5>Population</h5>
           <h1 className="population-h1">{population}</h1>
           <div className="text-end population-icon-container">
-            <a href={`#inhabitant-setup?tankId=${tankId}`}><i className="fas fa-plus" /></a>
+            <a href={`#inhabitants?tankId=${tankId}`}><i className="fas fa-plus" /></a>
           </div>
         </div>
       </div>

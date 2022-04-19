@@ -278,3 +278,7 @@ a.sidebar-item {
   right: 1em;
   bottom: 1em;
 }
+
+.inhabitants-h1 {
+  display: inline-block;
+}
