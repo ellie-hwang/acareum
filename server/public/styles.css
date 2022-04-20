@@ -332,12 +332,20 @@ a.sidebar-item {
   margin: 1em;
 }
 
-.inhabitant-details-p {
+.inhabitant-details > h4 {
+  margin: 0;
+}
+
+.inhabitant-details > p {
   margin: 0;
 }
 
 .trash-icon-container {
   position: absolute;
-  right: 1em;
-  bottom: 1em;
+  right: 0.5em;
+  bottom: 0.5em;
+}
+
+.far.fa-trash-alt {
+  font-size: 1.5em;
 }

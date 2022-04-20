@@ -7,9 +7,11 @@ export default class InhabitantList extends React.Component {
       inhabitants: [],
       inhabitantId: '',
       tankId: props.tankId,
-      detailsOpen: false
+      detailsOpen: false,
+      displayModal: false
     };
     this.handleClick = this.handleClick.bind(this);
+    this.displayModal = this.displayModal.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,18 @@ export default class InhabitantList extends React.Component {
       this.setState({
         inhabitantId: parseInt(event.target.getAttribute('data-inhabitant-id')),
         detailsOpen: true
+      });
+    }
+  }
+
+  displayModal(event) {
+    if (event.target.matches('#trash-icon')) {
+      this.setState({
+        displayModal: true
+      });
+    } else if (event.target.matches('#cancel-button')) {
+      this.setState({
+        displayModal: false
       });
     }
   }
@@ -84,13 +98,13 @@ function Details(props) {
             {name}
           </strong>
         </h4>
-        <p className="inhabitant-details-p">
+        <p>
           <em>
             ({species})
           </em>
         </p>
-        <div className="trash-icon-container">
-
+        <div className="trash-icon-container" onClick={this.displayModal}>
+          <i id="trash-icon" className="far fa-trash-alt" />
         </div>
       </div>
    </div>
