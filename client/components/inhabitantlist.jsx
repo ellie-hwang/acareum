@@ -89,6 +89,9 @@ function Details(props) {
             ({species})
           </em>
         </p>
+        <div className="trash-icon-container">
+
+        </div>
       </div>
    </div>
   );

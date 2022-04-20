@@ -186,6 +186,42 @@ app.get('/api/inhabitants/:tankId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/inhabitants/:inhabitantId', (req, res, next) => {
+  const inhabitantId = Number(req.params.inhabitantId);
+  if (!inhabitantId) {
+    throw new ClientError(400, 'inhabitantId must be a positive integer');
+  }
+  const sql1 = `
+    delete from "inhabitants"
+    where "inhabitantId" = $1
+    returning *;
+  `;
+  const params1 = [inhabitantId];
+  db.query(sql1, params1)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `There is no record of the inhabitant with the inhabitantId ${inhabitantId}`);
+      }
+      const [removedInhabitant] = result.rows;
+      const imageId = Number(removedInhabitant.imageId);
+      const sql2 = `
+        delete from "images"
+        where "imageId" = $1
+        returning *;
+      `;
+      const params2 = [imageId];
+      db.query(sql2, params2)
+        .then(result => {
+          if (!result.rows) {
+            throw new ClientError(400, `There is no record of the image with the imageId ${imageId}`);
+          }
+          res.sendStatus(204);
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
