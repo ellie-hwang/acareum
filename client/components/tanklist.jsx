@@ -41,12 +41,10 @@ export default class TankList extends React.Component {
 
   render() {
     const toggleDetails = this.state.detailsOpen ? '' : 'display-none';
-    const toggleImg = this.state.detailsOpen ? 'display-none' : '';
     const tanks = this.state.tanks.map(tank => {
       if (tank.tankId === this.state.tankId) {
         return (
           <div className="mb-3 col-12 col-sm-6 col-md-6" key={tank.tankId.toString()} data-tank-id={tank.tankId} onClick={this.handleClick}>
-            <TankImg display={toggleImg} tank={tank} />
             <Details display={toggleDetails} tank={tank} />
           </div>
         );
@@ -54,7 +52,6 @@ export default class TankList extends React.Component {
         return (
           <div className="mb-3 col-12 col-sm-6 col-md-6" key={tank.tankId.toString()} data-tank-id={tank.tankId} onClick={this.handleClick}>
             <TankImg display='' tank={tank} />
-            <Details display='display-none' tank={tank} />
           </div>
         );
       }
@@ -68,8 +65,7 @@ export default class TankList extends React.Component {
 }
 
 function TankImg(props) {
-  const { imageId, imageUrl, tankId } =
-  props.tank;
+  const { imageId, imageUrl, tankId } = props.tank;
   return (
     <div className={props.display}>
       <img src={imageUrl} alt="picture of user's tank" data-image-id={imageId} data-tank-id={tankId} className="tank-img" />
@@ -78,8 +74,7 @@ function TankImg(props) {
 }
 
 function Details(props) {
-  const { tankName, population, tankId } =
-    props.tank;
+  const { tankName, population, tankId } = props.tank;
   let { pH, ammonia, temperature, nitrite, nitrate } = props.tank;
   if (!pH) {
     pH = 'N/A';
