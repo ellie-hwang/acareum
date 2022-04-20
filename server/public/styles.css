@@ -155,7 +155,15 @@ button {
   border-radius: 12px;
   border: 2px solid white;
   background-color: #6930c3;
+  height: 200px;
   cursor: pointer;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.details-container::-webkit-scrollbar {
+  display: none;
 }
 
 .details {
@@ -294,4 +302,43 @@ a.sidebar-item {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.inhabitant-frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  border: 2px solid white;
+  background-color: #6930c3;
+}
+
+.inhabitant-frame::after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+/* .inhabitant-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+} */
+
+.inhabitant-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.inhabitant-details {
+  margin: 1em;
+}
+
+.inhabitant-details-p {
+  margin: 0;
 }
