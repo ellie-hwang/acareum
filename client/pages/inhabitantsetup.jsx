@@ -37,11 +37,11 @@ export default class InhabitantSetup extends React.Component {
           file: ''
         });
         this.fileInputRef.current.value = null;
+        window.location.hash = `inhabitants?tankId=${this.props.tankId}`;
       })
       .catch(error => {
         console.error('Error:', error);
       });
-    window.location.hash = `inhabitants?tankId=${this.props.tankId}`;
   }
 
   renderPreview(event) {

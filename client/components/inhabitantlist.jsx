@@ -7,9 +7,17 @@ export default class InhabitantList extends React.Component {
       inhabitants: [],
       inhabitantId: '',
       tankId: props.tankId,
-      detailsOpen: false
+      detailsOpen: false,
+      displayModal: false,
+      removeInhabitant: {
+        inhabitantId: '',
+        imageId: '',
+        name: ''
+      }
     };
     this.handleClick = this.handleClick.bind(this);
+    this.displayModal = this.displayModal.bind(this);
+    this.removeInhabitant = this.removeInhabitant.bind(this);
   }
 
   componentDidMount() {
@@ -40,13 +48,70 @@ export default class InhabitantList extends React.Component {
     }
   }
 
+  displayModal(event) {
+    if (event.target.matches('#trash-icon')) {
+      this.setState({
+        displayModal: true,
+        removeInhabitant: {
+          inhabitantId: event.target.getAttribute('data-remove-inhabitantid'),
+          imageId: event.target.getAttribute('data-remove-imageid'),
+          name: event.target.getAttribute('data-remove-inhabitantname')
+        }
+      });
+    } else if (event.target.matches('.dialogue-cancel-button')) {
+      this.setState({
+        displayModal: false,
+        removeInhabitant: {
+          inhabitantId: '',
+          imageId: '',
+          name: ''
+        }
+      });
+    }
+  }
+
+  removeInhabitant(event) {
+    if (event.target.matches('.dialogue-remove-button')) {
+      let { inhabitantId } = this.state.removeInhabitant;
+      let index = null;
+      inhabitantId = Number(inhabitantId);
+      for (let i = 0; i < this.state.inhabitants.length; i++) {
+        if (inhabitantId === this.state.inhabitants[i].inhabitantId) {
+          index = i;
+        }
+      }
+      fetch(`/api/inhabitants/${inhabitantId}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
+          const inhabitantsCopy = this.state.inhabitants.slice(0);
+          inhabitantsCopy.splice(index, 1);
+          this.setState({
+            inhabitants: inhabitantsCopy,
+            displayModal: false,
+            removeInhabitant: {
+              inhabitantId: '',
+              imageId: '',
+              name: ''
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }
+
   render() {
     const toggleDetails = this.state.detailsOpen ? '' : 'display-none';
+    const toggleModal = this.state.displayModal ? '' : 'display-none';
+    const removeInhabitantName = this.state.removeInhabitant.name ? this.state.removeInhabitant.name : '';
+
     const inhabitants = this.state.inhabitants.map(inhabitant => {
       if (inhabitant.inhabitantId === this.state.inhabitantId) {
         return (
           <div className="mb-3 col-6 col-sm-3 col-md-3" key={inhabitant.inhabitantId.toString()} onClick={this.handleClick}>
-            <Details display={toggleDetails} inhabitant={inhabitant} />
+            <Details display={toggleDetails} inhabitant={inhabitant} displayModal={this.displayModal} />
           </div>
         );
       } else {
@@ -58,9 +123,34 @@ export default class InhabitantList extends React.Component {
       }
     });
     return (
-      <div className="row">
-        {inhabitants}
-      </div>
+      <>
+        <div className={`modal-bg ${toggleModal}`}>
+          <div className="dialogue-box">
+            <div className="dialogue-content text-center">
+              <h5>
+                <em>
+                  Are you sure you want to remove <strong>{removeInhabitantName}</strong>?
+                </em>
+              </h5>
+              <div className="row d-flex justify-content-around">
+                <div className="col-4">
+                  <button className="dialogue-cancel-button" onClick={this.displayModal}>
+                    Cancel
+                  </button>
+                </div>
+                <div className="col-4">
+                  <button className="dialogue-remove-button" onClick={this.removeInhabitant}>
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          {inhabitants}
+        </div>
+      </>
     );
   }
 }
@@ -75,7 +165,7 @@ function InhabitantImg(props) {
 }
 
 function Details(props) {
-  const { name, species, inhabitantId } = props.inhabitant;
+  const { name, species, inhabitantId, imageId } = props.inhabitant;
   return (
     <div className={`${props.display} inhabitant-frame inhabitant-details-container d-flex justify-content-center align-items-center`} data-inhabitant-id={inhabitantId}>
       <div className="inhabitant-details text-center">
@@ -84,11 +174,14 @@ function Details(props) {
             {name}
           </strong>
         </h4>
-        <p className="inhabitant-details-p">
+        <p>
           <em>
             ({species})
           </em>
         </p>
+        <div className="trash-icon-container">
+          <i id="trash-icon" className="far fa-trash-alt" data-remove-inhabitantid={inhabitantId} data-remove-imageid={imageId} data-remove-inhabitantname={name} onClick={props.displayModal} />
+        </div>
       </div>
    </div>
   );
