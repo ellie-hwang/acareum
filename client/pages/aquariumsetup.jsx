@@ -35,11 +35,11 @@ export default class AquariumSetup extends React.Component {
           file: ''
         });
         this.fileInputRef.current.value = null;
+        window.location.hash = '#';
       })
       .catch(error => {
         console.error('Error:', error);
       });
-    window.location.hash = '#';
   }
 
   renderPreview(event) {
