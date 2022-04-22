@@ -98,7 +98,7 @@ export default class ConditionsSetup extends React.Component {
                   <div className="mb-3">
                     <label htmlFor="ammonia" className="form-label">Ammonia (ppm)</label>
                     <select required className="form-select" id="ammonia" onChange={this.setCondition}>
-                      <option value="DEFAULT" disabled hidden>Choose ammonia level</option>
+                      <option value="DEFAULT" hidden>Choose ammonia level</option>
                       <option value="0.0">0.0</option>
                       <option value="0.25">0.25</option>
                       <option value="0.50">0.50</option>
@@ -113,7 +113,7 @@ export default class ConditionsSetup extends React.Component {
                   <div className="mb-3">
                     <label htmlFor="nitrite" className="form-label">Nitrite (ppm)</label>
                     <select required className="form-select" id="nitrite" onChange={this.setCondition}>
-                      <option value="DEFAULT" disabled hidden>Choose nitrite level</option>
+                      <option value="DEFAULT" hidden>Choose nitrite level</option>
                       <option value="0.0">0.0</option>
                       <option value="0.25">0.25</option>
                       <option value="0.50">0.50</option>
@@ -122,10 +122,10 @@ export default class ConditionsSetup extends React.Component {
                       <option value="5.0">5.0</option>
                     </select>
                   </div>
-                  <div className="mb-3">
+                  <div className="mb-4">
                     <label htmlFor="nitrate" className="form-label">Nitrate (ppm)</label>
                     <select required className="form-select" id="nitrate" onChange={this.setCondition}>
-                      <option value="DEFAULT" disabled hidden>Choose nitrate level</option>
+                      <option value="DEFAULT" hidden>Choose nitrate level</option>
                       <option value="0">0</option>
                       <option value="5">5</option>
                       <option value="10">10</option>
