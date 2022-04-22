@@ -427,3 +427,26 @@ a.sidebar-item {
   background-color: #6930c3;
   display: inline-block;
 }
+
+.bubble-ph {
+  background-color: #5e60ce;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  top: 28%;
+  transform: translateX(-50%);
+}
+
+.bubble-ph::after {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  border-top: 4px solid #5e60ce;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}

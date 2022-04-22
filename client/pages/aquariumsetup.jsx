@@ -79,10 +79,10 @@ export default class AquariumSetup extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="mb-3 col-12 col-md-6" >
+          <div className="mb-3 col-12 col-sm-6 col-md-6" >
             <img src={placeholder} alt="picture of aquarium" className="tank-form-img" />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-sm-6 col-md-6">
             <form id="aquarium-form" onSubmit={this.handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="formFile" className="form-label custom-file-upload">Image</label>

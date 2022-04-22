@@ -47,7 +47,7 @@ export default class Dashboard extends React.Component {
             DATA TAB PLACEHOLDER
           </div> */}
           <div className="col-12 col-sm-6 col-md-6 mb-3 order-2 order-sm-1 order-md-1">
-            <Conditions conditions={this.state.conditions[0]} />
+            <Conditions conditions={this.state.conditions[0]} tank={this.state.tank}/>
           </div>
         </div>
       </div>
@@ -85,6 +85,7 @@ function Population(props) {
 
 function Conditions(props) {
   let pH, temperature, ammonia, nitrite, nitrate;
+  const { tankId } = props.tank;
   if (!props.conditions) {
     pH = temperature = ammonia = nitrite = nitrate = 'N/A';
   } else {
@@ -101,7 +102,7 @@ function Conditions(props) {
           <h5 className="text-end">Conditions</h5>
           <h1 className="conditions-h1 text-end mb-1">H<sub>2</sub>O</h1>
           <div className="text-end conditions-icon-container">
-            <a href={'#conditions-setup'}><i className="fas fa-plus" /></a>
+            <a href={`#conditions-setup?tankId=${tankId}`}><i className="fas fa-plus" /></a>
           </div>
         </div>
         <div className="col-3 col-sm-3 col-md-3 conditions-details mx-0 pe-0 text-end">
