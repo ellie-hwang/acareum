@@ -15,6 +15,13 @@ export default class Dashboard extends React.Component {
       .catch(error => {
         console.error('Error:', error);
       });
+
+    fetch(`/api/conditions/${this.props.tankId}`)
+      .then(res => res.json())
+      .then(conditions => this.setState({ conditions }))
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   render() {
