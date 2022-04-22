@@ -222,6 +222,47 @@ app.delete('/api/inhabitants/:inhabitantId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/conditions/:tankId', (req, res, next) => {
+  const tankId = Number(req.params.tankId);
+  if (!tankId) {
+    throw new ClientError(400, 'tankId must be a positive integer');
+  }
+  const sql = `
+    select *
+    from "conditions"
+    where "conditions"."tankId" = $1
+    order by "conditions"."dateLogged" desc;
+  `;
+  const params = [tankId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `There are no conditions logged for the tankId ${tankId}`);
+      }
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/conditions', (req, res, next) => {
+  const { pH, temperature, ammonia, nitrite, nitrate, tankId } = req.body;
+  if (!pH || !temperature || !ammonia || !nitrite || !nitrate || !tankId) {
+    throw new ClientError(400, 'pH, temperature, ammonia, nitrite, nitrate, and tankId are required fields');
+  }
+  const sql = `
+    insert into "conditions" ("pH", "temperature", "ammonia", "nitrite", "nitrate", "tankId")
+    values ($1, $2, $3, $4, $5, $6)
+    returning *;
+  `;
+  const params = [pH, temperature, ammonia, nitrite, nitrate, tankId];
+  db.query(sql, params)
+    .then(result => {
+      const [newConditions] = result.rows;
+      res.status(201).json(newConditions);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
