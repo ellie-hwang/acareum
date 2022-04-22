@@ -435,7 +435,7 @@ a.sidebar-item {
   position: absolute;
   border-radius: 4px;
   left: 50%;
-  top: 28%;
+  top: 20%;
   transform: translateX(-50%);
 }
 
@@ -449,4 +449,24 @@ a.sidebar-item {
   border-top: 4px solid #5e60ce;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
+}
+
+option {
+  background-color: black;
+  color: white;
+}
+
+.form-select {
+  outline: none;
+  background-color: black;
+  border: 1px solid white;
+  color: rgb(156, 156, 156);
+}
+
+.form-select:focus {
+  outline: none;
+  background-color: black;
+  border: 2px solid #5e60ce;
+  box-shadow: none;
+  color: white;
 }
