@@ -321,6 +321,34 @@ a.sidebar-item {
   margin-bottom: 0;
 }
 
+.charts-tab {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: #5e60ce;
+  border-radius: 12px;
+  border: 2px solid white;
+}
+
+.charts-tab::after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.charts-details {
+  position: absolute;
+  padding: 1em;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.fas.fa-chart-bar {
+  font-size: 4em;
+}
+
 .inhabitants-h1 {
   display: inline-block;
 }
