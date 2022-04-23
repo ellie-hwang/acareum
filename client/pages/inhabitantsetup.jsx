@@ -80,7 +80,7 @@ export default class InhabitantSetup extends React.Component {
             </div>
           </div>
           <div className="col-12 col-sm-6 col-md-6">
-            <form id="aquarium-form" onSubmit={this.handleSubmit}>
+            <form id="inhabitant-form" onSubmit={this.handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="formFile" className="form-label custom-file-upload">Image</label>
                 <input required autoFocus className="form-control" type="file" id="formFile" name="image" ref={this.fileInputRef} accept=".png, .jpg, .jpeg, .gif" onChange={this.renderPreview} value={this.state.url} />

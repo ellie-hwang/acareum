@@ -6,6 +6,7 @@ import AquariumSetup from './pages/aquariumsetup';
 import Dashboard from './pages/dashboard';
 import Inhabitants from './pages/inhabitants';
 import InhabitantSetup from './pages/inhabitantsetup';
+import ConditionsSetup from './pages/conditionssetup';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -43,6 +44,10 @@ export default class App extends React.Component {
     if (route.path === 'inhabitant-setup') {
       const tankId = route.params.get('tankId');
       return <InhabitantSetup tankId={tankId} />;
+    }
+    if (route.path === 'conditions-setup') {
+      const tankId = route.params.get('tankId');
+      return <ConditionsSetup tankId={tankId} />;
     }
     return <MyAquariums />;
   }

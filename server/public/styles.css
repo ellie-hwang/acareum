@@ -250,39 +250,75 @@ a.sidebar-item {
   font-size: 25px;
 }
 
-.population-tab {
-  background-color: #6930c3;
-  border-radius: 12px;
-  border: 2px solid white;
-  position: relative;
-}
-
 .db-tank-img {
   border-radius: 12px;
   border: 2px solid white;
   width: 100%;
-  height: 200px;
+  height: 175px;
   object-fit: cover;
 }
 
-.population-details {
+.conditions-tab {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 175px;
+  background-color: #a47ce3;
+  border-radius: 12px;
+  border: 2px solid white;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.conditions-tab::-webkit-scrollbar {
+  display: none;
+}
+
+.conditions-details {
   margin: 1em;
 }
 
-.population-details > h1 {
-  font-size: 4em;
-  padding: 0;
-  margin-bottom: 0.5em;
+.conditions-h1 {
+  font-size: 3em;
 }
 
-.population-details > h5 {
-  margin-bottom: 0;
+.conditions-details > p {
+  margin: 0;
+  padding-bottom: 0.3em;
 }
 
-.population-icon-container {
+.population-tab {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: #6930c3;
+  border-radius: 12px;
+  border: 2px solid white;
+}
+
+.population-tab::after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.population-details {
   position: absolute;
-  right: 1em;
-  bottom: 1em;
+  padding: 1em;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.population-h1 {
+  font-size: 4em;
+  margin-bottom: -0.2em;
+}
+
+.population-details-h5 {
+  margin-bottom: 0;
 }
 
 .inhabitants-h1 {
@@ -390,4 +426,47 @@ a.sidebar-item {
 .dialogue-remove-button {
   background-color: #6930c3;
   display: inline-block;
+}
+
+.bubble-ph {
+  background-color: #5e60ce;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+}
+
+.bubble-ph::after {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  border-top: 4px solid #5e60ce;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+option {
+  background-color: black;
+  color: white;
+}
+
+.form-select {
+  outline: none;
+  background-color: black;
+  border: 1px solid white;
+  color: rgb(156, 156, 156);
+}
+
+.form-select:focus {
+  outline: none;
+  background-color: black;
+  border: 2px solid #5e60ce;
+  box-shadow: none;
+  color: white;
 }
