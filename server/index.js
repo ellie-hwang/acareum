@@ -1,5 +1,5 @@
 require('dotenv/config');
-const path = require('path');
+// const path = require('path');
 const pg = require('pg');
 const express = require('express');
 const ClientError = require('./client-error');
@@ -24,7 +24,8 @@ app.use(jsonMiddleware);
 
 app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
   const { name } = req.body;
-  const url = path.join('/images', req.file.filename);
+  // const url = path.join('/images', req.file.filename);
+  const fileUrl = req.file.location;
   const size = Number(req.body.size);
   if (!Number.isInteger(size) || size < 0) {
     throw new ClientError(400, 'size must be an integer');
@@ -37,11 +38,10 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
     values ($1)
     returning *;
   `;
-  const params1 = [url];
+  const params1 = [fileUrl];
   db.query(sql1, params1)
     .then(result => {
       const [newImage] = result.rows; // returns a json obj { "imageId":"someNumber" }
-      // res.status(201).json(newImage);
       const imageId = Number(newImage.imageId);
       const sql2 = `
         insert into "tanks" ("name", "imageId", "size")
@@ -94,7 +94,8 @@ app.get('/api/aquariums', (req, res, next) => {
 
 app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
   const { name, species, tankId } = req.body;
-  const url = path.join('/images', req.file.filename);
+  // const url = path.join('/images', req.file.filename);
+  const fileUrl = req.file.location;
   if (!tankId || !name || !species) {
     throw new ClientError(400, 'image, tankId, name, and species are required fields');
   }
@@ -103,7 +104,7 @@ app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
     values ($1)
     returning *;
   `;
-  const params1 = [url];
+  const params1 = [fileUrl];
   db.query(sql1, params1)
     .then(result => {
       const [newImage] = result.rows; // returns a json obj { "imageId":"someNumber" }
