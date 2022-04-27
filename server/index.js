@@ -39,7 +39,7 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
   const params1 = [fileUrl];
   db.query(sql1, params1)
     .then(result => {
-      const [newImage] = result.rows; // returns a json obj { "imageId":"someNumber" }
+      const [newImage] = result.rows;
       const imageId = Number(newImage.imageId);
       const sql2 = `
         insert into "tanks" ("name", "imageId", "size")
@@ -49,7 +49,7 @@ app.post('/api/aquariums', uploadsMiddleware, (req, res, next) => {
       const params2 = [name, imageId, size];
       db.query(sql2, params2)
         .then(result => {
-          const [newTank] = result.rows; // return a json obj { tankId, name, imageId, size }
+          const [newTank] = result.rows;
           res.status(201).json({ newImage, newTank });
         })
         .catch(err => next(err));
@@ -104,7 +104,7 @@ app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
   const params1 = [fileUrl];
   db.query(sql1, params1)
     .then(result => {
-      const [newImage] = result.rows; // returns a json obj { "imageId":"someNumber" }
+      const [newImage] = result.rows;
       const imageId = Number(newImage.imageId);
       const sql2 = `
         insert into "inhabitants" ("tankId", "name", "species", "imageId")
@@ -114,7 +114,7 @@ app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
       const params2 = [tankId, name, species, imageId];
       db.query(sql2, params2)
         .then(result => {
-          const [newInhabitant] = result.rows; // return a json obj { inhabitantId, tankId, name, species, dateAdded, imageId}
+          const [newInhabitant] = result.rows;
           res.status(201).json({ newImage, newInhabitant });
         })
         .catch(err => next(err));
