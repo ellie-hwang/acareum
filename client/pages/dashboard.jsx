@@ -43,11 +43,11 @@ export default class Dashboard extends React.Component {
           <div className="col-6 col-sm-3 col-md-3 mb-3 order-1 order-sm-2 order-md-2">
             <Population tank={this.state.tank} />
           </div>
-          {/* <div className="col-6 col-sm-3 col-md-3">
-            DATA TAB PLACEHOLDER
-          </div> */}
-          <div className="col-12 col-sm-6 col-md-6 mb-3 order-2 order-sm-1 order-md-1">
-            <Conditions conditions={this.state.conditions[0]} tank={this.state.tank}/>
+          <div className="col-6 col-sm-3 col-md-3 mb-3 order-2 order-sm-3 order-md-3">
+            <Charts tank={this.state.tank} conditions={this.state.conditions} />
+          </div>
+          <div className="col-12 col-sm-6 col-md-6 mb-3 order-3 order-sm-1 order-md-1">
+            <Conditions conditions={this.state.conditions[0]} tank={this.state.tank} />
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ function Population(props) {
   const { population, tankId } = props.tank;
   return (
       <div className="population-tab">
-      <div className="population-details d-flex align-items-center justify-content-center text-center">
+      <div className="population-details d-flex justify-content-center text-center">
         <div>
           <h5 className="population-details-h5 m-0">Population</h5>
           <h1 className="population-h1">{population}</h1>
@@ -80,6 +80,23 @@ function Population(props) {
         </div>
         </div>
       </div>
+  );
+}
+
+function Charts(props) {
+  // const { conditions } = props.conditions;
+  const { tankId } = props.tank;
+  return (
+    <div className="charts-tab">
+      <div className="charts-details d-flex justify-content-center text-center">
+        <div>
+          <h5 className="charts-details-h5 m-0">Charts</h5>
+          <div className="chart-icon-container mt-2">
+            <a href={`#charts?tankId=${tankId}`}><i className="fas fa-chart-bar" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
