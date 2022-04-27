@@ -84,7 +84,6 @@ function Population(props) {
 }
 
 function Charts(props) {
-  // const { conditions } = props.conditions;
   const { tankId } = props.tank;
   return (
     <div className="charts-tab">
