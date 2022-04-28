@@ -12,7 +12,7 @@ const s3 = new S3({
 const storage = multerS3({
   s3: s3,
   bucket: process.env.AWS_S3_BUCKET,
-  acl: 'public-read', // so that users can view the files
+  acl: 'public-read',
   key: (req, file, done) => {
     const fileExtension = path.extname(file.originalname);
     const key = `${Date.now()}${fileExtension}`;
