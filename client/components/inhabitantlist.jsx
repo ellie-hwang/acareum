@@ -13,7 +13,9 @@ export default class InhabitantList extends React.Component {
         inhabitantId: '',
         imageId: '',
         name: ''
-      }
+      },
+      errorMessage: '',
+      loading: true
     };
     this.handleClick = this.handleClick.bind(this);
     this.displayModal = this.displayModal.bind(this);
@@ -26,7 +28,9 @@ export default class InhabitantList extends React.Component {
       .then(inhabitants => this.setState({ inhabitants }))
       .catch(error => {
         console.error('Error:', error);
+        this.setState({ errorMessage: error });
       });
+    this.setState({ loading: false });
   }
 
   handleClick(event) {
@@ -103,6 +107,9 @@ export default class InhabitantList extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading === true ? '' : 'display-none';
+    const error = this.state.errorMessage ? '' : 'display-none';
+    const noInhabitants = (this.state.inhabitants.length === 0 && !this.state.errorMessage) ? '' : 'display-none';
     const toggleDetails = this.state.detailsOpen ? '' : 'display-none';
     const toggleModal = this.state.displayModal ? '' : 'display-none';
     const removeInhabitantName = this.state.removeInhabitant.name ? this.state.removeInhabitant.name : '';
@@ -146,6 +153,17 @@ export default class InhabitantList extends React.Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className={`row ${error}`}>
+          <p>
+            Sorry, there was an error connecting to the network! Please check your internet connection and try again.
+          </p>
+        </div>
+        <div className={`row justify-content-center ${loading}`}>
+          <div className={'lds-ripple'}><div></div><div></div></div>
+        </div>
+        <div className={`row ${noInhabitants}`} >
+          <p>There are currently no inhabitants in your tank!</p>
         </div>
         <div className="row">
           {inhabitants}

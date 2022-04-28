@@ -6,7 +6,9 @@ export default class TankList extends React.Component {
     this.state = {
       tanks: [],
       tankId: '',
-      detailsOpen: false
+      detailsOpen: false,
+      errorMessage: '',
+      loading: true
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -17,7 +19,9 @@ export default class TankList extends React.Component {
       .then(tanks => this.setState({ tanks }))
       .catch(error => {
         console.error('Error:', error);
+        this.setState({ errorMessage: error });
       });
+    this.setState({ loading: false });
   }
 
   handleClick(event) {
@@ -40,6 +44,9 @@ export default class TankList extends React.Component {
   }
 
   render() {
+    const loading = this.state.loading === true ? '' : 'display-none';
+    const error = this.state.errorMessage ? '' : 'display-none';
+    const noTanks = (this.state.tanks.length === 0 && !this.state.errorMessage) ? '' : 'display-none';
     const toggleDetails = this.state.detailsOpen ? '' : 'display-none';
     const tanks = this.state.tanks.map(tank => {
       if (tank.tankId === this.state.tankId) {
@@ -57,9 +64,22 @@ export default class TankList extends React.Component {
       }
     });
     return (
-      <div className="row">
-        {tanks}
-      </div>
+      <>
+        <div className={`row ${error}`}>
+          <p>
+            Sorry, there was an error connecting to the network! Please check your internet connection and try again.
+          </p>
+        </div>
+        <div className={`row justify-content-center ${loading}`}>
+          <div className={'lds-ripple'}><div></div><div></div></div>
+        </div>
+        <div className={`row ${noTanks}`} >
+            <p>There are currently no aquariums set up!</p>
+        </div>
+        <div className="row">
+          {tanks}
+        </div>
+      </>
     );
   }
 }
