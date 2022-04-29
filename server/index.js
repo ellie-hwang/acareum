@@ -109,7 +109,7 @@ app.post('/api/inhabitants', uploadsMiddleware, (req, res, next) => {
       const sql2 = `
         insert into "inhabitants" ("tankId", "name", "species", "imageId")
         values ($1, $2, $3, $4)
-        returning *
+        returning *;
       `;
       const params2 = [tankId, name, species, imageId];
       db.query(sql2, params2)

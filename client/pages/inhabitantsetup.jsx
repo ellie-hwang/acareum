@@ -102,5 +102,4 @@ export default class InhabitantSetup extends React.Component {
       </div>
     );
   }
-
 }

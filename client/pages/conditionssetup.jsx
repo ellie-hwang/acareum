@@ -68,7 +68,6 @@ export default class ConditionsSetup extends React.Component {
 
   render() {
     const pH = this.state.pH ? this.state.pH : '7.0';
-
     const min = 0.0;
     const max = 14.0;
     const newVal = Number(((pH - min) * 100) / (max - min));
@@ -146,5 +145,4 @@ export default class ConditionsSetup extends React.Component {
       </div>
     );
   }
-
 }

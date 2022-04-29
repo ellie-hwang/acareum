@@ -106,5 +106,4 @@ export default class AquariumSetup extends React.Component {
       </div>
     );
   }
-
 }
