@@ -63,6 +63,14 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
     npm install
     ```
 
+1. Make a copy of the .env.example file and name it .env
+
+    ```shell
+    cp .env.example .env
+    ``
+
+1. Set up your environment variables such as an aws-access-key-id, aws-secret-access-key, and aws-s3-bucket in the .env file
+
 1. Import the example database.
 
     ```shell
