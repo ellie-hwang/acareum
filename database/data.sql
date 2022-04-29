@@ -11,8 +11,8 @@ values ('/images/myaquarium.jpg'),
 ('/images/white-cloud-minnow.jpg');
 
 insert into "tanks" ("name", "imageId", "size", "dateAdded")
-values ('Bikini Bottom', 1, 30, '2022-04-01 08:30:00-08'),
-('Chum Bucket', 2, 50, '2022-04-01 08:30:00-08');
+values ('Mini Aquarium', 1, 30, '2022-04-01 08:30:00-08'),
+('Lounge Aquarium', 2, 50, '2022-04-01 08:30:00-08');
 
 insert into "conditions" ("tankId", "pH", "temperature", "ammonia", "nitrite", "nitrate", "dateLogged")
 values (2, 7.0, 72, 2.5, 2.5, 20, '2022-03-28 08:30:00-08'),
