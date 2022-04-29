@@ -2,7 +2,7 @@
 
 A full stack JavaScript application for aquarium hobbyists who want to manage their personal aquariums.
 
-aCareum was created for those who enjoy keeping track of their aquarium condtions and inhabitants. Aquariums are sensitive environment and hobbyists need a way to make sure their tanks are in top condition. aCareum allows users to have a dedicated dashboard for each of their aquarium tanks so management is streamlined.
+aCareum was created for those who enjoy keeping track of their aquarium conditions and inhabitants. Aquariums have sensitive environments and hobbyists need a way to make sure their tanks are in top condition. aCareum allows users to have a dedicated dashboard for each of their aquarium tanks so management is streamlined.
 ## Technologies Used
 
 - React.js
@@ -69,7 +69,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
     cp .env.example .env
     ```
 
-1. Set up your environment variables such as an aws-access-key-id, aws-secret-access-key, and aws-s3-bucket in the .env file
+1. Set up your environment variables such as a database_url, aws_access_key_id, aws_secret_access_key, and aws_s3_bucket in the .env file
 
 1. Import the example database.
 
