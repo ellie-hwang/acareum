@@ -67,7 +67,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 
     ```shell
     cp .env.example .env
-    ``
+    ```
 
 1. Set up your environment variables such as an aws-access-key-id, aws-secret-access-key, and aws-s3-bucket in the .env file
 
