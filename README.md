@@ -46,6 +46,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 
 - Node.js 10 or higher
 - NPM 6 or higher
+- PostgreSQL 12.9 or higher
 
 ### Getting Started
 
