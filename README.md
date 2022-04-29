@@ -1,4 +1,4 @@
-# student-grade-table
+# aCareum
 
 A full stack JavaScript application for aquarium hobbyists who want to manage their personal aquariums.
 
