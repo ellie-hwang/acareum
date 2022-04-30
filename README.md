@@ -53,7 +53,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 1. Clone the repository.
 
     ```shell
-    git clone git@github.com:ellie-hwang/final-project.git
+    git clone git@github.com:ellie-hwang/acareum.git
     cd final-project
     ```
 
