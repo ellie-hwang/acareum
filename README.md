@@ -54,7 +54,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 
     ```shell
     git clone git@github.com:ellie-hwang/acareum.git
-    cd final-project
+    cd acareum
     ```
 
 1. Install all dependencies with NPM.
