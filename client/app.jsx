@@ -6,6 +6,7 @@ import Dashboard from './pages/dashboard';
 import Inhabitants from './pages/inhabitants';
 import InhabitantSetup from './pages/inhabitantsetup';
 import ConditionsSetup from './pages/conditionssetup';
+import ChartsView from './pages/charts';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
@@ -47,6 +48,10 @@ export default class App extends React.Component {
     if (route.path === 'conditions-setup') {
       const tankId = route.params.get('tankId');
       return <ConditionsSetup tankId={tankId} />;
+    }
+    if (route.path === 'charts-view') {
+      const tankId = route.params.get('tankId');
+      return <ChartsView tankId={tankId} />;
     }
     return <MyAquariums />;
   }

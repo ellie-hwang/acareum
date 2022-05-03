@@ -91,7 +91,7 @@ function Charts(props) {
         <div>
           <h5 className="charts-details-h5 m-0">Charts</h5>
           <div className="chart-icon-container mt-2">
-            <a href={`#charts?tankId=${tankId}`}><i className="fas fa-chart-bar" /></a>
+            <a href={`#charts-view?tankId=${tankId}`}><i className="fas fa-chart-bar" /></a>
           </div>
         </div>
       </div>
