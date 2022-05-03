@@ -1,4 +1,5 @@
 import React from 'react';
+// import { Chart } from 'react-google-charts';
 
 export default class ChartsView extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class ChartsView extends React.Component {
             </div>
           </div>
           <div className="row">
-            <Chart tankId={this.state.tankId} condition={this.state.condition} timeSpan={this.state.timeSpan} />
+            <ChartComp tankId={this.state.tankId} condition={this.state.condition} timeSpan={this.state.timeSpan} />
             <div className="col-12 col-sm-6 col-md-6">
               <form>
                 <div className="mb-3">
@@ -60,7 +61,7 @@ export default class ChartsView extends React.Component {
   }
 }
 
-function Chart(props) {
+function ChartComp(props) {
   const { condition, timeSpan } = props;
   return (
     <div className="col-12 col-sm-6 col-md-6">
