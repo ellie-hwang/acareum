@@ -6,7 +6,7 @@ import Dashboard from './pages/dashboard';
 import Inhabitants from './pages/inhabitants';
 import InhabitantSetup from './pages/inhabitantsetup';
 import ConditionsSetup from './pages/conditionssetup';
-import ChartsView from './pages/charts';
+import ChartsView from './pages/chartsview';
 import { parseRoute } from './lib';
 
 export default class App extends React.Component {
