@@ -28,10 +28,10 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 - Hobbyist can view information on the inhabitant.
 - Hobbyist can remove the aquarium inhabitant.
 - Hobbyist can add aquarium water conditions.
+- Hobbyist can view a chart of specific aquarium condition over a time span (7 days or 30 days)
 
 ## Stretch Features
 
-- Hobbyist can view a graph of aquarium conditions over the course of a selected time period (week, month)
 - Hobbyist can set up reminders on when to feed fish and clean tank
 - Hobbyist can indicate which inhabitant requires special attention (sick, spawning, treated)
 - Hobbyist can move the inhabitant to another aquarium
@@ -39,6 +39,7 @@ Try the application live at [https://acareum.herokuapp.com/](https://acareum.her
 
 ![acareum-01](assets/acareum-01.gif)
 ![acareum-02](assets/acareum-02.gif)
+![acareum-03](assets/acareum-03.gif)
 
 ## Development
 

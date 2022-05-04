@@ -261,6 +261,64 @@ app.post('/api/conditions', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/conditions/week/:tankId', (req, res, next) => {
+  const tankId = Number(req.params.tankId);
+  if (!tankId) {
+    throw new ClientError(400, 'tankId must be a positive integer');
+  }
+  const sql = `
+    select "conditionsId", "pH", "temperature", "ammonia", "nitrite", "nitrate", "max_dateLogged"
+    from "conditions"
+    inner join
+    (
+    select max("dateLogged") as "max_dateLogged"
+      from "conditions"
+      group by date("dateLogged")
+    ) "max_date" ON "conditions"."dateLogged" = "max_date"."max_dateLogged"
+    where "conditions"."dateLogged" >= NOW() - INTERVAL '7 DAYS'
+    and "tankId" = $1
+    order by "conditions"."dateLogged" asc
+  `;
+  const params = [tankId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `There are no conditions logged for the tankId ${tankId}`);
+      }
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/conditions/month/:tankId', (req, res, next) => {
+  const tankId = Number(req.params.tankId);
+  if (!tankId) {
+    throw new ClientError(400, 'tankId must be a positive integer');
+  }
+  const sql = `
+    select "conditionsId", "pH", "temperature", "ammonia", "nitrite", "nitrate", "max_dateLogged"
+    from "conditions"
+    inner join
+    (
+    select max("dateLogged") as "max_dateLogged"
+      from "conditions"
+      group by date("dateLogged")
+    ) "max_date" ON "conditions"."dateLogged" = "max_date"."max_dateLogged"
+    where "conditions"."dateLogged" >= NOW() - INTERVAL '30 DAYS'
+    and "tankId" = $1
+    order by "conditions"."dateLogged" asc
+  `;
+  const params = [tankId];
+  db.query(sql, params)
+    .then(result => {
+      if (!result.rows) {
+        throw new ClientError(400, `There are no conditions logged for the tankId ${tankId}`);
+      }
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

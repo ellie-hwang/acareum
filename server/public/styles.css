@@ -499,6 +499,19 @@ option {
   color: white;
 }
 
+.chart-frame {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid white;
+}
+
+.chart-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .lds-ripple {
   display: inline-block;
   position: relative;
