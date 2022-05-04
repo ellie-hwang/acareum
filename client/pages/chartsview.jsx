@@ -8,29 +8,26 @@ export default class ChartsView extends React.Component {
       tankId: this.props.tankId,
       condition: '',
       timeSpan: '',
-      data: []
+      dataWeek: [],
+      dataMonth: []
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.setConditionTimeSpan = this.setConditionTimeSpan.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if (Number(this.state.timeSpan) === 7) {
-      fetch(`/api/conditions/week/${this.state.tankId}`)
-        .then(res => res.json())
-        .then(data => this.setState({ data }))
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    } else if (Number(this.state.timeSpan) === 30) {
-      fetch(`/api/conditions/month/${this.state.tankId}`)
-        .then(res => res.json())
-        .then(data => this.setState({ data }))
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    }
+  componentDidMount() {
+    fetch(`/api/conditions/week/${this.state.tankId}`)
+      .then(res => res.json())
+      .then(dataWeek => this.setState({ dataWeek }))
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    fetch(`/api/conditions/month/${this.state.tankId}`)
+      .then(res => res.json())
+      .then(dataMonth => this.setState({ dataMonth }))
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   setConditionTimeSpan(event) {
@@ -38,7 +35,8 @@ export default class ChartsView extends React.Component {
       this.setState({
         timeSpan: event.target.value
       });
-    } else if (event.target.getAttribute('id') === 'condition') {
+    }
+    if (event.target.getAttribute('id') === 'condition') {
       this.setState({
         condition: event.target.value
       });
@@ -55,9 +53,9 @@ export default class ChartsView extends React.Component {
             </div>
           </div>
           <div className="row">
-            <ChartComp tankId={this.state.tankId} condition={this.state.condition} timeSpan={this.state.timeSpan} data={this.state.data} />
+            <ChartComp tankId={this.state.tankId} condition={this.state.condition} timeSpan={this.state.timeSpan} dataWeek={this.state.dataWeek} dataMonth={this.state.dataMonth} />
             <div className="col-12 col-sm-6 col-md-6">
-              <form onSubmit={this.handleSubmit}>
+              <form>
                 <div className="mb-3">
                   <label htmlFor="timeSpan" className="form-label">Time Frame</label>
                   <select required className="form-select" id="timeSpan" onChange={this.setConditionTimeSpan}>
@@ -77,9 +75,6 @@ export default class ChartsView extends React.Component {
                     <option value="nitrate">nitrate</option>
                   </select>
                 </div>
-                <div className="text-end">
-                  <button type="submit">View Chart</button>
-                </div>
               </form>
             </div>
           </div>
@@ -89,32 +84,70 @@ export default class ChartsView extends React.Component {
   }
 }
 
-// function padTwoDigits(number) {
-//   return number.toString().padStart(2, '0');
-// }
+function padTwoDigits(number) {
+  return number.toString().padStart(2, '0');
+}
 
-// function getMonthDate(date) {
-//   return [
-//     padTwoDigits(date.getMonth() + 1),
-//     padTwoDigits(date.getDate()),
-//     padTwoDigits(date.getFullYear())
-//   ].join('/');
-// }
-
-// function getDate(date) {
-
-// }
+function getDate(date) {
+  return [
+    padTwoDigits(date.getMonth() + 1),
+    padTwoDigits(date.getDate()),
+    padTwoDigits(date.getFullYear())
+  ].join('/');
+}
 
 function ChartComp(props) {
-  const { condition, data } = props;
+  const { condition, timeSpan, dataWeek, dataMonth } = props;
   const chartData = [[{ type: 'date', label: 'Date' }, { type: 'number', label: { condition } }]];
-  for (let i = 0; i < data.length; i++) {
-    const dataPoint = [];
-    const date = new Date(data[i].max_dateLogged);
-    const conditionValue = Number(Number(data[i][condition]).toFixed(1));
-    dataPoint.push(date);
-    dataPoint.push(conditionValue);
-    chartData.push(dataPoint);
+  let title = '';
+  let vaxisTitle = '';
+  if (Number(timeSpan) === 7) {
+    for (let i = 0; i < dataWeek.length; i++) {
+      const dataPoint = [];
+      const date = new Date(dataWeek[i].max_dateLogged);
+      const conditionValue = Number(Number(dataWeek[i][condition]).toFixed(1));
+      dataPoint.push(date);
+      dataPoint.push(conditionValue);
+      chartData.push(dataPoint);
+    }
+  } else if (Number(timeSpan) === 30) {
+    for (let i = 0; i < dataMonth.length; i++) {
+      const dataPoint = [];
+      const date = new Date(dataMonth[i].max_dateLogged);
+      const conditionValue = Number(Number(dataMonth[i][condition]).toFixed(1));
+      dataPoint.push(date);
+      dataPoint.push(conditionValue);
+      chartData.push(dataPoint);
+    }
+  }
+
+  if (condition === 'pH') {
+    title = `${condition} Levels: ${getDate(chartData[1][0])} - ${getDate(chartData[chartData.length - 1][0])}`;
+    vaxisTitle = condition;
+  } else if (condition && (condition !== 'pH')) {
+    const conditionUpper = condition.charAt(0).toUpperCase() + condition.slice(1);
+    vaxisTitle = conditionUpper;
+    title = `${conditionUpper} Levels: ${getDate(chartData[1][0])} - ${getDate(chartData[chartData.length - 1][0])}`;
+  }
+
+  let max = 0;
+  let min = 0;
+
+  if (condition === 'pH') {
+    max = 14.0;
+    min = 0.0;
+  } else if (condition === 'temperature') {
+    max = 100;
+    min = 50;
+  } else if (condition === 'ammonia') {
+    max = 8.0;
+    min = 0.0;
+  } else if (condition === 'nitrite') {
+    max = 5.0;
+    min = 0.0;
+  } else if (condition === 'nitrate') {
+    max = 50;
+    min = 0;
   }
 
   const options = {
@@ -142,27 +175,28 @@ function ChartComp(props) {
       }
     },
     vAxis: {
-      title: `${condition} Level`,
+      title: `${vaxisTitle} Level`,
       titleTextStyle: {
         color: '#FFF',
         fontSize: 14,
         bold: true
       },
-      minValue: 0,
-      maxValue: 14,
       textStyle: {
         color: 'white'
-      }
+      },
+      minValue: min,
+      maxValue: max
     }
   };
 
-  const displayImg = data.length === 0 ? '' : 'display-none';
-  const displayChart = data.length !== 0 ? '' : 'display-none';
+  const displayImg = (!condition || !timeSpan) ? '' : 'display-none';
+  const displayChart = (condition && timeSpan) ? '' : 'display-none';
   return (
     <div className="col-12 col-sm-6 col-md-6">
       <div className="chart-frame mb-3">
         <img src="images/placeholder-chart.png" alt="chart placeholder image" className={`chart-img ${displayImg}`} />
-        <div className={displayChart}>
+        <div className={`mt-3 mx-3 text-center ${displayChart}`}>
+          <h6>{title}</h6>
           <Chart
             chartType="LineChart"
             width="auto"
