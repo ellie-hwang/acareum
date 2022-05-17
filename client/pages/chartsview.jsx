@@ -101,7 +101,7 @@ function ChartComp(props) {
   const chartData = [[{ type: 'date', label: 'Date' }, { type: 'number', label: { condition } }]];
   let title = '';
   let vaxisTitle = '';
-  if (Number(timeSpan) === 7) {
+  if (Number(timeSpan) === 7 && dataWeek.length !== 0) {
     for (let i = 0; i < dataWeek.length; i++) {
       const dataPoint = [];
       const date = new Date(dataWeek[i].max_dateLogged);
@@ -110,7 +110,7 @@ function ChartComp(props) {
       dataPoint.push(conditionValue);
       chartData.push(dataPoint);
     }
-  } else if (Number(timeSpan) === 30) {
+  } else if (Number(timeSpan) === 30 && dataMonth.length !== 0) {
     for (let i = 0; i < dataMonth.length; i++) {
       const dataPoint = [];
       const date = new Date(dataMonth[i].max_dateLogged);
@@ -121,10 +121,10 @@ function ChartComp(props) {
     }
   }
 
-  if (condition === 'pH') {
+  if (condition === 'pH' && chartData.length > 1) {
     title = `${condition} Levels: ${getDate(chartData[1][0])} - ${getDate(chartData[chartData.length - 1][0])}`;
     vaxisTitle = condition;
-  } else if (condition && (condition !== 'pH')) {
+  } else if (condition && (condition !== 'pH') && chartData.length > 1) {
     const conditionUpper = condition.charAt(0).toUpperCase() + condition.slice(1);
     vaxisTitle = conditionUpper;
     title = `${conditionUpper} Levels: ${getDate(chartData[1][0])} - ${getDate(chartData[chartData.length - 1][0])}`;
@@ -190,11 +190,13 @@ function ChartComp(props) {
   };
 
   const displayImg = (!condition || !timeSpan) ? '' : 'display-none';
-  const displayChart = (condition && timeSpan) ? '' : 'display-none';
+  const displayNoData = (condition && timeSpan && chartData.length <= 1) ? '' : 'display-none';
+  const displayChart = (condition && timeSpan && chartData.length > 1) ? '' : 'display-none';
   return (
     <div className="col-12 col-sm-6 col-md-6">
       <div className="chart-frame mb-3">
         <img src="images/placeholder-chart.png" alt="chart placeholder image" className={`chart-img ${displayImg}`} />
+        <img src="images/data-not-available.png" alt="data not available image" className={`chart-img ${displayNoData}`} />
         <div className={`mt-3 mx-3 text-center ${displayChart}`}>
           <h6>{title}</h6>
           <Chart
